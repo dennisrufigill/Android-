@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="dennis.example.com.iufest.MainActivity">
+
+
+    <ImageView
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo2"
+        android:layout_gravity="center"
+        android:baselineAlignBottom="true"
+        android:layout_marginBottom="470dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView" />
+
+
+    <Button
+        android:id="@+id/btn_Fest"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/login_button"
+        android:text="FEST"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/btn_business"
+        />
+
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Business"
+        android:textSize="25dp"
+        android:background="@drawable/login_button"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_Fest"
+        android:id="@+id/btn_business"
+        />
+
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Media"
+        android:textSize="25dp"
+        android:background="@drawable/login_button"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_business"
+        android:id="@+id/btn_media"
+        />
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="AIFD"
+        android:textSize="25dp"
+        android:background="@drawable/login_button"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_media"
+        android:id="@+id/btn_aifd"
+        />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Visit Us"
+    android:textSize="20dp"
+    android:textColor="@color/colorPrimary"
+    android:gravity="center_horizontal"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="41dp"
+    android:id="@+id/tv_visitus"
+    />
+
+
+
+</RelativeLayout>
+
+
