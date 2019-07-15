@@ -52,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "You Clicked Cancel", Toast.LENGTH_SHORT).show();
             }
         });
+//        builder.setPositiveButton("Ignore", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Toast.makeText(getApplicationContext(), "You Clicked Ignore", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
 
 //        AlertDialog dialog = builder.create();
 //        dialog.show();
@@ -100,5 +108,8 @@ builder.show();
         alertDialog2.show();
 
         */
+
+
+
     }
 }
