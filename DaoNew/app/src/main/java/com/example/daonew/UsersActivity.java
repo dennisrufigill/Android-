@@ -7,12 +7,14 @@ import android.R.layout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +27,12 @@ import java.util.List;
 
 public class UsersActivity extends AppCompatActivity {
 
+
+    String GETusername, GETusergender, GETusestatus;
+
     ListView listView;
+
+    Spinner spinner;
 
     EditText name;
     EditText gender;
@@ -34,7 +41,7 @@ public class UsersActivity extends AppCompatActivity {
 
     TextView textView;
 
-  //  boolean createNew = false;
+    //  boolean createNew = false;
 
     DaoSession daoSession;
 
@@ -43,7 +50,7 @@ public class UsersActivity extends AppCompatActivity {
     ArrayAdapter<Users> userArrayAdapter;
     //  List<Users> users1 = new ArrayList<>();
 
-  //  List<String> usersNameList = new ArrayList<>();
+    //  List<String> usersNameList = new ArrayList<>();
     //
 
     List<Users> users = new ArrayList<>();
@@ -58,7 +65,7 @@ public class UsersActivity extends AppCompatActivity {
         gender = findViewById(R.id.et_user_gender);
         status = findViewById(R.id.et_userStatus);
         listView = findViewById(R.id.listview);
-
+        spinner = findViewById(R.id.spinner_id);
 
 
         addUserbutton = findViewById(R.id.btn_newuser);
@@ -81,32 +88,90 @@ public class UsersActivity extends AppCompatActivity {
 
         setupListView();
 
+        UsersDao usersDao = daoSession.getUsersDao();
+
+       List<Users> teachers = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(2)).orderAsc(UsersDao.Properties.Name)
+               .list();
+
+     //   List<Users> teachers = usersDao.queryBuilder().
+
+        ArrayAdapter spinnerAdapter = new ArrayAdapter(this, layout.simple_spinner_item,teachers);
+        spinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.notifyDataSetChanged();
+
+
 
     }
 
 
     public void insetItem() {
+
         UsersDao usersDao = daoSession.getUsersDao();
-        Users users = new Users();
-        users.setName(name.getText().toString());
-        users.setGender(gender.getText().toString());
-        users.setStatus(Integer.parseInt(status.getText().toString()));
-        long id = usersDao.insert(users);
-        Toast.makeText(getApplicationContext(), "Item Inserted:  " + id, Toast.LENGTH_SHORT).show();
 
-        name.setText("");
-        gender.setText("");
-        status.setText("");
+/*
+        List<Users> teachers = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(2)).orderAsc(UsersDao.Properties.Name)
+              .list();
+
+        List<Users> teachers = usersDao.queryBuilder().orderAsc(UsersDao.Properties.Name).list();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, teachers);
+        spinner.setAdapter(arrayAdapter);
 
 
-     //
-        usersDao.loadAll();
+       List<Users> students = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(3)).orderAsc(UsersDao.Properties.Name).list();
 
-        userArrayAdapter.notifyDataSetChanged();
-        setupListView();
+*/
+        GETusername = name.getText().toString();
+        GETusergender = gender.getText().toString();
+        GETusestatus = status.getText().toString();
+
+
+        if(TextUtils.isEmpty(GETusername) && TextUtils.isEmpty(GETusergender)){
+
+            Toast.makeText(getApplicationContext(),"Please fill info", Toast.LENGTH_SHORT).show();
+
+        }
+
+      else  if (TextUtils.isEmpty(GETusername)){
+
+            Toast.makeText(getApplicationContext(), "Please fill Name", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(GETusergender)) {
+
+            Toast.makeText(getApplicationContext(), "Please fill Gender", Toast.LENGTH_SHORT).show();
+        }
+
+        else if(TextUtils.isEmpty(GETusestatus)){
+
+            Toast.makeText(getApplicationContext(), "Please fill status", Toast.LENGTH_SHORT).show();
+        }
+
+
+        else {
+
+            Users users = new Users();
+
+            // if(TextUtils.isEmpty(name))
+
+
+            users.setName(name.getText().toString());
+            users.setGender(gender.getText().toString());
+            users.setStatus(Integer.parseInt(status.getText().toString()));
+            long id = usersDao.insert(users);
+            Toast.makeText(getApplicationContext(), "Item Inserted:  " + id, Toast.LENGTH_SHORT).show();
+
+            name.setText("");
+            gender.setText("");
+            status.setText("");
+
+
+            //
+            usersDao.loadAll();
+
+            userArrayAdapter.notifyDataSetChanged();
+            setupListView();
 //
+        }
     }
-
 //   public void showData(){
 //        UsersDao usersDao = daoSession.getUsersDao();
 //        users1.addAll(usersDao.loadAll());

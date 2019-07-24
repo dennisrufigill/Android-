@@ -32,5 +32,14 @@
         android:layout_marginLeft="150dp"
         android:text="Add Courses" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course Assign"
+        android:layout_below="@+id/btn_addCourse"
+        android:layout_marginLeft="150dp"
+        android:id="@+id/btn_assignCourse"
+        />
+
 
 </RelativeLayout>

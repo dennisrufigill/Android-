@@ -43,9 +43,16 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:id="@+id/listView_courses"
         ></ListView>
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        ></Spinner>
 
 
 </LinearLayout>

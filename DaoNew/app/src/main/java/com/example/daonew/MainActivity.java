@@ -20,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
     public static final int STATUS_STUDENT = 3;
 
 
-    Button btn_adduser, btn_addcourse;
+    Button btn_adduser, btn_addcourse, btn_courseassign;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn_adduser = findViewById(R.id.btn_addUser);
         btn_addcourse = findViewById(R.id.btn_addCourse);
+        btn_courseassign = findViewById(R.id.btn_assignCourse);
 
         btn_adduser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+      btn_courseassign.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+              Intent intent = new Intent(getApplicationContext(), CourseAssignActivity.class);
+              startActivity(intent);
+          }
+      });
 
 /*
         Users useradmin = new Users();

@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.daonew.database.Course;
@@ -22,10 +24,15 @@ import java.util.List;
 
 public class CoursesActivity extends AppCompatActivity {
 
+    String GETcoursename, GETcredithour, GETcoursemarks;
+
+
+
     EditText courseName, courseCreditHours, course_MaxMarks;
     Button addCourseButton;
 
     ListView listView;
+    Spinner spinner;
 
     ArrayAdapter<Course> courseArrayAdapter;
 
@@ -33,6 +40,7 @@ public class CoursesActivity extends AppCompatActivity {
     private Course editCourse;
 
     DaoSession daoSession;
+    CourseDao courseDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,7 @@ public class CoursesActivity extends AppCompatActivity {
         course_MaxMarks = findViewById(R.id.et_course_max_marks);
         addCourseButton = findViewById(R.id.btn_addNewCourse);
         listView = findViewById(R.id.listView_courses);
+        spinner = findViewById(R.id.spinner);
 
         daoSession = ((MyApplication) getApplication()).getDaoSession();
 
@@ -65,6 +74,20 @@ public class CoursesActivity extends AppCompatActivity {
         });
 
         setupListView();
+
+        //
+
+        CourseDao courseDao = daoSession.getCourseDao();
+        List<Course> courseslist = courseDao.queryBuilder().orderAsc().list();
+
+            ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,courseslist);
+            spinner.setAdapter(spinnerAdapter);
+            spinnerAdapter.notifyDataSetChanged();
+
+
+
+
+        //
     }
 
 
@@ -72,20 +95,45 @@ public class CoursesActivity extends AppCompatActivity {
 
         CourseDao courseDao = daoSession.getCourseDao();
 
-        Course course = new Course();
-        course.setName(courseName.getText().toString());
-        course.setCredit_hour(Double.parseDouble(courseCreditHours.getText().toString()));
-        course.setMax_marks(Double.parseDouble(course_MaxMarks.getText().toString()));
+        GETcoursename = courseName.getText().toString();
+        GETcredithour = courseCreditHours.getText().toString();
+        GETcoursemarks = course_MaxMarks.getText().toString();
 
-        long id = courseDao.insert(course);
 
-        Toast.makeText(getApplicationContext(), "Inserted Successfully", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(GETcoursename) && TextUtils.isEmpty(GETcredithour)) {
 
-        courseDao.loadAll();
-        courseArrayAdapter.notifyDataSetChanged();
-        setupListView();
+            Toast.makeText(getApplicationContext(), "Please fill info", Toast.LENGTH_SHORT).show();
+
+        } else if (TextUtils.isEmpty(GETcoursename)) {
+
+            Toast.makeText(getApplicationContext(), "Please fill Course Name", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(GETcredithour)) {
+
+            Toast.makeText(getApplicationContext(), "Please fill Credit Hour", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(GETcoursemarks)) {
+
+            Toast.makeText(getApplicationContext(), "Please fill Max Marks", Toast.LENGTH_SHORT).show();
+        } else {
+
+            Course course = new Course();
+            course.setName(courseName.getText().toString());
+            course.setCredit_hour(Double.parseDouble(courseCreditHours.getText().toString()));
+            course.setMax_marks(Double.parseDouble(course_MaxMarks.getText().toString()));
+
+            long id = courseDao.insert(course);
+
+            Toast.makeText(getApplicationContext(), "Inserted Successfully", Toast.LENGTH_SHORT).show();
+
+            courseName.setText("");
+            courseCreditHours.setText("");
+            course_MaxMarks.setText("");
+
+
+            courseDao.loadAll();
+            courseArrayAdapter.notifyDataSetChanged();
+            setupListView();
+        }
     }
-
 
     private void setupListView() {
 
