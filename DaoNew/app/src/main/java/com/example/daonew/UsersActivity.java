@@ -34,7 +34,7 @@ public class UsersActivity extends AppCompatActivity {
 
     TextView textView;
 
-    boolean createNew = false;
+  //  boolean createNew = false;
 
     DaoSession daoSession;
 
@@ -43,7 +43,7 @@ public class UsersActivity extends AppCompatActivity {
     ArrayAdapter<Users> userArrayAdapter;
     //  List<Users> users1 = new ArrayList<>();
 
-    List<String> usersNameList = new ArrayList<>();
+  //  List<String> usersNameList = new ArrayList<>();
     //
 
     List<Users> users = new ArrayList<>();
@@ -58,7 +58,7 @@ public class UsersActivity extends AppCompatActivity {
         gender = findViewById(R.id.et_user_gender);
         status = findViewById(R.id.et_userStatus);
         listView = findViewById(R.id.listview);
-        // textView = findViewById(R.id.textView);
+
 
 
         addUserbutton = findViewById(R.id.btn_newuser);
@@ -94,7 +94,17 @@ public class UsersActivity extends AppCompatActivity {
         long id = usersDao.insert(users);
         Toast.makeText(getApplicationContext(), "Item Inserted:  " + id, Toast.LENGTH_SHORT).show();
 
+        name.setText("");
+        gender.setText("");
+        status.setText("");
 
+
+     //
+        usersDao.loadAll();
+
+        userArrayAdapter.notifyDataSetChanged();
+        setupListView();
+//
     }
 
 //   public void showData(){
