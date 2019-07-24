@@ -33,7 +33,7 @@ public class CourseAssignActivity extends AppCompatActivity {
     public Spinner course_spinner, teacher_spinner, student_spinner;
     Button courseassign_button;
 
-  //  String[] static_courses = {"DAA", "CAO", "OOP", "MAD", "OS"};
+    //  String[] static_courses = {"DAA", "CAO", "OOP", "MAD", "OS"};
 
 
     @Override
@@ -55,31 +55,56 @@ public class CourseAssignActivity extends AppCompatActivity {
         CourseDao courseDao = daoSession.getCourseDao();
 
         List<Course> courselist = courseDao.queryBuilder().orderAsc().list();
-        ArrayAdapter spinnerAdaptercourse = new ArrayAdapter(this, android.R.layout.simple_spinner_item,courselist);
-        course_spinner.setAdapter(spinnerAdaptercourse);
-        spinnerAdaptercourse.notifyDataSetChanged();
+
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(this, R.layout.custom_spinner, courselist);
+        course_spinner.setAdapter(customSpinnerAdapter);
+        customSpinnerAdapter.notifyDataSetChanged();
 
 
         UsersDao usersDao = daoSession.getUsersDao();
 
         List<Users> teacherlist = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(2)).orderAsc().list();
-        ArrayAdapter spinnerAdapterteacher = new ArrayAdapter(this, android.R.layout.simple_spinner_item,teacherlist);
-        teacher_spinner.setAdapter(spinnerAdapterteacher);
-        spinnerAdapterteacher.notifyDataSetChanged();
+
+        CustomSpinnerAdapterTeacher customSpinnerAdapterTeacher = new CustomSpinnerAdapterTeacher(this, R.layout.custom_spinner_teacher, teacherlist);
+        teacher_spinner.setAdapter(customSpinnerAdapterTeacher);
+        customSpinnerAdapterTeacher.notifyDataSetChanged();
 
 
-      List<Users> studentlist = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(3)).orderAsc().list();
+        List<Users> studentlist1 = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(3)).orderAsc().list();
 
-      //  List<Users> studentlist1 = usersDao.queryBuilder().where(UsersDao.Properties.Name.eq("Dennis Rufi")).orderAsc().list();
-        ArrayAdapter spinnerAdapterstudent = new ArrayAdapter(this, android.R.layout.simple_spinner_item,studentlist);
-        student_spinner.setAdapter(spinnerAdapterstudent);
-        spinnerAdapterstudent.notifyDataSetChanged();
-
+        CustomSpinnerAdapterStudent customSpinnerAdapterStudent = new CustomSpinnerAdapterStudent(this, R.layout.custom_spinner_student, studentlist1);
+        student_spinner.setAdapter(customSpinnerAdapterStudent);
+        customSpinnerAdapter.notifyDataSetChanged();
 
 
+        courseassign_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+              //  Toast.makeText(getApplicationContext(), "Data Inserted Succesfully", Toast.LENGTH_SHORT).show();
+
+                insertData();
+            }
+        });
 
 
     }
 
+//
+
+    public void insertData(){
+
+        CourseAssignDao courseAssignDao = daoSession.getCourseAssignDao();
+
+        CourseAssign courseAssign = new CourseAssign();
+
+        courseAssign.setC_id(course_spinner.getId());
+        courseAssign.setS_id(student_spinner.getId());
+        courseAssign.setT_id(teacher_spinner.getId());
+
+        long id = courseAssignDao.insert(courseAssign);
+        Toast.makeText(getApplicationContext(), "Data Inserted Succesfully", Toast.LENGTH_SHORT).show();
+
+    }
+//
 }

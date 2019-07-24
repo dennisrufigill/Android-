@@ -73,6 +73,16 @@ public class UsersActivity extends AppCompatActivity {
 
         daoSession = ((MyApplication) getApplication()).getDaoSession();
 
+
+
+
+
+
+
+
+
+
+
         addUserbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,16 +99,33 @@ public class UsersActivity extends AppCompatActivity {
         setupListView();
 
         UsersDao usersDao = daoSession.getUsersDao();
+        List<Users> u1 = usersDao.queryBuilder().orderAsc().list();
 
-       List<Users> teachers = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(2)).orderAsc(UsersDao.Properties.Name)
-               .list();
 
-     //   List<Users> teachers = usersDao.queryBuilder().
+        CustomSpinnerAdapterTeacher customSpinnerAdapterTeacher = new CustomSpinnerAdapterTeacher(this,R.layout.custom_spinner_teacher,u1);
+        spinner.setAdapter(customSpinnerAdapterTeacher);
+        customSpinnerAdapterTeacher.notifyDataSetChanged();
+
+
+
+        //    List<Users> teachers = usersDao.queryBuilder().where(UsersDao.Properties.Status.eq(2)).orderAsc(UsersDao.Properties.Name)
+        //  .list();
+
+/*
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(this, R.layout.custom_spinner, u1);
+        spinner.setAdapter(customSpinnerAdapter);
+        customSpinnerAdapter.notifyDataSetChanged();
+*/
+
+        //   List<Users> teachers = usersDao.queryBuilder().
+
+
+        /*
 
         ArrayAdapter spinnerAdapter = new ArrayAdapter(this, layout.simple_spinner_item,teachers);
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
-
+*/
 
 
     }
@@ -125,28 +152,20 @@ public class UsersActivity extends AppCompatActivity {
         GETusestatus = status.getText().toString();
 
 
-        if(TextUtils.isEmpty(GETusername) && TextUtils.isEmpty(GETusergender)){
+        if (TextUtils.isEmpty(GETusername) && TextUtils.isEmpty(GETusergender)) {
 
-            Toast.makeText(getApplicationContext(),"Please fill info", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please fill info", Toast.LENGTH_SHORT).show();
 
-        }
-
-      else  if (TextUtils.isEmpty(GETusername)){
+        } else if (TextUtils.isEmpty(GETusername)) {
 
             Toast.makeText(getApplicationContext(), "Please fill Name", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(GETusergender)) {
+        } else if (TextUtils.isEmpty(GETusergender)) {
 
             Toast.makeText(getApplicationContext(), "Please fill Gender", Toast.LENGTH_SHORT).show();
-        }
-
-        else if(TextUtils.isEmpty(GETusestatus)){
+        } else if (TextUtils.isEmpty(GETusestatus)) {
 
             Toast.makeText(getApplicationContext(), "Please fill status", Toast.LENGTH_SHORT).show();
-        }
-
-
-        else {
+        } else {
 
             Users users = new Users();
 

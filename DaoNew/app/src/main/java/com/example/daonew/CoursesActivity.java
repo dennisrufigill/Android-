@@ -80,12 +80,26 @@ public class CoursesActivity extends AppCompatActivity {
         CourseDao courseDao = daoSession.getCourseDao();
         List<Course> courseslist = courseDao.queryBuilder().orderAsc().list();
 
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(this,R.layout.custom_spinner,courseslist);
+        spinner.setAdapter(customSpinnerAdapter);
+        customSpinnerAdapter.notifyDataSetChanged();
+
+
+
+
+
+//
+        //
+/*
+        CourseDao courseDao = daoSession.getCourseDao();
+        List<Course> courseslist = courseDao.queryBuilder().orderAsc().list();
+
             ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,courseslist);
             spinner.setAdapter(spinnerAdapter);
             spinnerAdapter.notifyDataSetChanged();
 
 
-
+*/
 
         //
     }
