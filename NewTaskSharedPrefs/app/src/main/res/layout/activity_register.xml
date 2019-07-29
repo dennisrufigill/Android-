@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <EditText
+
+        android:id="@+id/id_et_register_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="20sp"
+        android:inputType="textEmailAddress"
+        />
+
+
+    <EditText
+
+        android:id="@+id/id_et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textSize="20sp"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+
+        android:id="@+id/id_et_fathername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Father Name"
+        android:textSize="20sp"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/id_et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone"
+        android:inputType="number"
+        android:textSize="20sp"
+
+
+
+        />
+
+    <EditText
+        android:id="@+id/id_et_register_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:minEms="6"
+        android:textSize="20sp"
+
+
+        />
+
+    <EditText
+        android:id="@+id/id_et_confirmpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:minEms="6"
+        android:textSize="20sp"
+
+
+        />
+
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_radiogroup_gender"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Gender"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radiobtn_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/radiobtn_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female" />
+
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/id_spinnercountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        ></Spinner>
+
+    <Spinner
+        android:layout_marginTop="10dp"
+        android:id="@+id/id_spinnercity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+
+
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please accept Terms and Conditions"
+        android:id="@+id/id_checkbox"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/id_btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textColor="@color/colorAccent" />
+
+
+
+        <Button
+            android:id="@+id/id_btn_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Data"
+            android:textColor="@color/colorAccent" />
+
+
+
+        <Button
+            android:id="@+id/id_btn_movetologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Move to Login"
+            android:textColor="@color/colorAccent"
+
+            />
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proceed to Login Activity"
+        android:textSize="25sp"
+        android:id="@+id/tv_proceed_login"
+        android:visibility="invisible"
+
+        />
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_tv_show"
+            />
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>
