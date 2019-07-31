@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
 
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,25 +49,38 @@ public class LoginActivity extends AppCompatActivity {
                 String email = et_email.getText().toString();
                 String password = et_password.getText().toString();
 
-                try {
-                    if (email.length() > 0 && password.length() > 0) {
 
-                        if (databaseHelper.login(email, password)) {
-                            Toast.makeText(getApplicationContext(), "Loggedin Successfull", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(et_email.getText().toString()) && TextUtils.isEmpty(et_password.getText().toString())) {
 
-                            session.setLoggedin(true);
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "No.....Invalid Credentails", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Enter Valid Email and Password", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(et_email.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(et_password.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Please Enter Password", Toast.LENGTH_SHORT).show();
+                } else if (et_password.getText().toString().length() < 6) {
+                    Toast.makeText(getApplicationContext(), "Password must be atleast six characters", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    try {
+                        if (email.length() > 0 && password.length() > 0) {
+
+                            if (databaseHelper.login(email, password)) {
+                                Toast.makeText(getApplicationContext(), "Loggedin Successfull", Toast.LENGTH_SHORT).show();
+
+                                session.setLoggedin(true);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "No.....Invalid Credentails", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
+                    } catch (Exception e) {
 
+                        Toast.makeText(getApplicationContext(), " " + e, Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e) {
-
-                    Toast.makeText(getApplicationContext(), " " + e, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

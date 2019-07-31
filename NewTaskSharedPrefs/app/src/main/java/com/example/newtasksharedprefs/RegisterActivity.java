@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                     + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -139,6 +139,13 @@ public class RegisterActivity extends AppCompatActivity {
                         stringBuffer.append("Id : " + cursor.getString(0) + "\n");
                         stringBuffer.append("Email: " + cursor.getString(1) + "\n");
                         stringBuffer.append("Name : " + cursor.getString(2) + "\n");
+                        stringBuffer.append("FName : " + cursor.getString(3) + "\n");
+                        stringBuffer.append("Phone: " + cursor.getString(4) + "\n");
+                        stringBuffer.append("Password : " + cursor.getString(5) + "\n");
+                        stringBuffer.append("Confirm Password : " + cursor.getString(6) + "\n");
+                        stringBuffer.append("Gender :" + cursor.getString(7) + "\n");
+                        stringBuffer.append("Country : " + cursor.getString(8) + "\n");
+                        stringBuffer.append("City : " + cursor.getString(9) + "\n");
 
                         tv_show_data.setText(stringBuffer.toString());
 
@@ -177,15 +184,27 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please Enter your Father Name", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(et_phone.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Please Enter your Phone Number", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(et_password.getText().toString())) {
+        }
+/*
+        else if (et_phone.getText().toString().length() <9) {
+
+            Toast.makeText(getApplicationContext(), "Please Enter Complete Phone Number", Toast.LENGTH_SHORT).show();
+
+        }
+*/
+        else if (TextUtils.isEmpty(et_password.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_SHORT).show();
         } else if (et_password.getText().toString().length() < 6) {
             Toast.makeText(getApplicationContext(), "Password must be atleast 6 digits", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(et_confirmpassword.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Please enter confirm password", Toast.LENGTH_SHORT).show();
-        } else if (et_confirmpassword.getText().toString().length() < 6) {
+        }
+
+        else if (et_confirmpassword.getText().toString().length() < 6) {
             Toast.makeText(getApplicationContext(), "Password must be atleast 6 digits", Toast.LENGTH_SHORT).show();
-        } else if (!et_password.getText().toString().equals(et_confirmpassword.getText().toString())) {
+        }
+
+        else if (!et_password.getText().toString().equals(et_confirmpassword.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Password did not match", Toast.LENGTH_SHORT).show();
         } else if (radioGroupGender.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getApplicationContext(), "Please select your gender", Toast.LENGTH_SHORT).show();
@@ -198,13 +217,15 @@ public class RegisterActivity extends AppCompatActivity {
             //  Toast.makeText(getApplicationContext(), "Registered", Toast.LENGTH_SHORT).show();
 
             int selectedId = radioGroupGender.getCheckedRadioButtonId();
+            radioButtongender = findViewById(selectedId);
 
 
-            String gender = " " + selectedId;
+            //   String gender = String.valueOf(radioButtongender.getText());
+
 
             boolean result = databaseHelper.addUser(et_email.getText().toString(), et_name.getText().toString(),
                     et_fathername.getText().toString(), Integer.valueOf(et_phone.getText().toString()), et_password.getText().toString(),
-                    et_confirmpassword.getText().toString(), gender, spinner_countries.getSelectedItem().toString(), spinner_cities.getSelectedItem().toString());
+                    et_confirmpassword.getText().toString(), radioButtongender.getText().toString(), spinner_countries.getSelectedItem().toString(), spinner_cities.getSelectedItem().toString());
 
             if (result == true) {
                 Toast.makeText(getApplicationContext(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();

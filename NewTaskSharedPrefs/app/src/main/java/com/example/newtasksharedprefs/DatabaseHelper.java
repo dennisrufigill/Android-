@@ -72,8 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
     public Cursor getData() {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         Cursor res = sqLiteDatabase.rawQuery("Select * from " + TABLE_NAME, null);
@@ -81,19 +79,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-    public boolean login(String email, String password){
+    public boolean login(String email, String password) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery(" select * from " + TABLE_NAME  + " where EMAIL = ?  AND PASSWORD = ?", new String[]{email,password});
+        Cursor cursor = sqLiteDatabase.rawQuery(" select * from " + TABLE_NAME + " where EMAIL = ?  AND PASSWORD = ?", new String[]{email, password});
 
-        if(cursor !=null){
-             if(cursor.getCount() >0){
-                 return  true;
-             }
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                return true;
+            }
         }
         return false;
     }
 
 }
+
+
+
