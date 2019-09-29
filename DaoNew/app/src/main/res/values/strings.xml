@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DaoNew</string>
+    <string name="update">Update</string>
+    <string name="insert">Add</string>
+</resources>
